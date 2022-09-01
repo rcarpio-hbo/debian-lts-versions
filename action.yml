@@ -1,0 +1,29 @@
+name: Debian LTS versions
+author: Rosa Maria Carpio Lopez
+description: Get list of LTS debian versions
+outputs:
+  lts:
+    description: maintained LTS versions
+    value: ${{ steps.matrix-generator.outputs.lts }}
+  min:
+    description: the lowest LTS version
+    value: ${{ steps.matrix-generator.outputs.min }}
+  max:
+    description: the highest LTS version
+    value: ${{ steps.matrix-generator.outputs.max }}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+    - name: Install python dependencies
+      run: |
+        pip3 install -r requirements.txt
+      shell: bash
+    - id: matrix-generator
+      run: |
+        LTS_DETAILS=$(python3 ${{github.action_path}}/get_debian_versions.py)
+        echo $LTS_DETAILS
+        echo "::set-output name=lts::$(echo $LTS_DETAILS | jq --raw-output -c .lts_versions)"
+        echo "::set-output name=min::$(echo $LTS_DETAILS | jq --raw-output -c .lts_min)"
+        echo "::set-output name=max::$(echo $LTS_DETAILS | jq --raw-output -c .lts_max)"
+      shell: bash
