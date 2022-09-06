@@ -1,6 +1,9 @@
 name: Debian LTS versions
 author: Rosa Maria Carpio Lopez
 description: Get list of LTS debian versions
+branding:
+  icon: 'play'
+  color: 'red'
 outputs:
   lts:
     description: maintained LTS versions
