@@ -10,7 +10,7 @@ This action has three outputs: min, max and lts.
 
 * `min` is the lowest LTS version.
 * `max` is the highest LTS version.
-* `lts` is a subset of active versions.
+* `lts` is a subset of active versions
 
 ```yaml
 - name: Get LTS debian details
